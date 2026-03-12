@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSM1 Project Proposal — UTM MAS Bus Fleet Optimization</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16120e;
+    --surface: #1e1812;
+    --surface2: #252018;
+    --border: #33291e;
+    --accent: #e8a456;
+    --accent2: #e07b4a;
+    --accent3: #7db87a;
+    --accent4: #c4a3e0;
+    --text: #f2e8d9;
+    --muted: #7a6a55;
+    --dim: #c4b49a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 15.5px;
+    line-height: 1.8;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0;
+    width: 240px;
+    height: 100vh;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 32px 20px;
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  nav .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  nav .subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  nav ul { list-style: none; }
+
+  nav ul li { margin-bottom: 2px; }
+
+  nav ul li a {
+    display: block;
+    padding: 6px 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+
+  nav ul li a:hover {
+    background: var(--surface2);
+    color: var(--text);
+  }
+
+  nav ul li a.active { color: var(--accent); background: rgba(232,164,86,0.08); }
+
+  nav .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    padding: 16px 10px 4px;
+  }
+
+  /* MAIN */
+  main {
+    margin-left: 240px;
+    padding: 60px 64px 120px;
+    max-width: 960px;
+  }
+
+  /* HEADER HERO */
+  .hero {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 48px;
+    margin-bottom: 64px;
+  }
+
+  .hero .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(232,164,86,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(232,164,86,0.25);
+    padding: 4px 10px;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  .hero h1 span { color: var(--accent); }
+
+  .hero p {
+    font-size: 16.5px;
+    color: var(--dim);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 28px;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .meta-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+
+  .meta-card .label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .meta-card .value {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+  }
+
+  /* SECTIONS */
+  section {
+    margin-bottom: 72px;
+    scroll-margin-top: 32px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    min-width: 28px;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #fff;
+    letter-spacing: -0.01em;
+  }
+
+  h3 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+    margin: 28px 0 10px;
+    letter-spacing: 0.01em;
+  }
+
+  h3.accent-blue { color: var(--accent); }
+  h3.accent-orange { color: var(--accent2); }
+  h3.accent-green { color: var(--accent3); }
+  h3.accent-purple { color: var(--accent4); }
+
+  p { margin-bottom: 16px; color: var(--dim); line-height: 1.85; font-size: 15px; }
+
+  strong { color: var(--text); font-weight: 600; }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: rgba(232,164,86,0.05);
+    padding: 16px 20px;
+    border-radius: 0 6px 6px 0;
+    margin: 20px 0;
+  }
+
+  .callout.orange { border-color: var(--accent2); background: rgba(224,123,74,0.07); }
+  .callout.green { border-color: var(--accent3); background: rgba(125,184,122,0.07); }
+  .callout.purple { border-color: var(--accent4); background: rgba(196,163,224,0.07); }
+  .callout.red { border-color: #e07b7b; background: rgba(224,123,123,0.07); }
+
+  .callout p { margin: 0; font-size: 14.5px; line-height: 1.75; color: var(--dim); }
+  .callout .callout-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .callout.orange .callout-title { color: var(--accent2); }
+  .callout.green .callout-title { color: var(--accent3); }
+  .callout.purple .callout-title { color: var(--accent4); }
+  .callout.red .callout-title { color: #e07b7b; }
+
+  /* LISTS */
+  ul.doc-list, ol.doc-list {
+    padding-left: 0;
+    list-style: none;
+    margin: 12px 0 20px;
+  }
+
+  ul.doc-list li, ol.doc-list li {
+    padding: 9px 0 9px 24px;
+    position: relative;
+    color: var(--dim);
+    border-bottom: 1px solid rgba(51,41,30,0.6);
+    font-size: 14.5px;
+    line-height: 1.75;
+  }
+
+  ul.doc-list li:last-child, ol.doc-list li:last-child { border-bottom: none; }
+
+  ul.doc-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+  }
+
+  ol.doc-list { counter-reset: item; }
+  ol.doc-list li { counter-increment: item; }
+  ol.doc-list li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    top: 10px;
+  }
+
+  /* TABLES */
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+
+  .doc-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+
+  .doc-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(51,41,30,0.5);
+    color: var(--dim);
+    vertical-align: top;
+    line-height: 1.7;
+    font-size: 14px;
+  }
+
+  .doc-table tr:last-child td { border-bottom: none; }
+  .doc-table tr:hover td { background: rgba(255,255,255,0.015); }
+
+  .doc-table td strong { color: var(--text); }
+
+  /* BADGE */
+  .badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .badge-blue { background: rgba(232,164,86,0.15); color: var(--accent); }
+  .badge-orange { background: rgba(224,123,74,0.18); color: var(--accent2); }
+  .badge-green { background: rgba(125,184,122,0.18); color: var(--accent3); }
+  .badge-red { background: rgba(224,123,123,0.18); color: #e07b7b; }
+  .badge-purple { background: rgba(196,163,224,0.18); color: var(--accent4); }
+
+  /* FLOW DIAGRAM (CSS) */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 24px 0;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .flow-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--dim);
+    text-align: center;
+    min-width: 120px;
+  }
+
+  .flow-step.highlight {
+    border-color: rgba(232,164,86,0.4);
+    background: rgba(232,164,86,0.06);
+    color: var(--accent);
+  }
+
+  .flow-arrow {
+    font-family: 'DM Mono', monospace;
+    color: var(--muted);
+    font-size: 14px;
+    padding: 0 4px;
+  }
+
+  /* AGENT CARD GRID */
+  .agent-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .agent-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .agent-card .agent-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .agent-card .agent-type {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+
+  .agent-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .agent-card ul li {
+    font-size: 13px;
+    color: var(--dim);
+    padding: 5px 0;
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.65;
+  }
+
+  .agent-card ul li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 16px;
+    top: 1px;
+  }
+
+  /* SCENARIO BOX */
+  .scenario {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin: 20px 0;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-size: 13.5px;
+    line-height: 1.8;
+  }
+
+  .scenario .step {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .scenario .step-num {
+    min-width: 22px;
+    height: 22px;
+    background: rgba(232,164,86,0.15);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: 2px;
+  }
+
+  .scenario .step-text { color: var(--dim); }
+  .scenario .step-text strong { color: var(--text); }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+    margin: 20px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+
+  .timeline-item .tl-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .timeline-item .tl-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+
+  .timeline-item .tl-desc {
+    font-size: 13.5px;
+    color: var(--dim);
+    line-height: 1.75;
+  }
+
+  /* CONSTRAINT TABLE */
+  .constraint-row { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .constraint-label {
+    min-width: 100px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    padding-top: 2px;
+  }
+  .constraint-value { font-size: 13.5px; color: var(--dim); }
+
+  /* SCROLL PROGRESS */
+  #progress {
+    position: fixed;
+    top: 0;
+    left: 240px;
+    right: 0;
+    height: 2px;
+    background: var(--border);
+    z-index: 200;
+  }
+  #progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.1s;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { display: none; }
+    main { margin-left: 0; padding: 32px 24px; }
+    .meta-grid { grid-template-columns: 1fr 1fr; }
+    .agent-grid { grid-template-columns: 1fr; }
+    #progress { left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"><div id="progress-bar"></div></div>
+
+<!-- SIDEBAR NAV -->
+<nav>
+  <div class="logo">PSM1 · SE · UTM</div>
+  <div class="subtitle">Sem 02, 2025/2026<br>Faculty of Computing</div>
+  <ul>
+    <div class="section-label">Overview</div>
+    <li><a href="#overview" class="active">Project Overview</a></li>
+    <li><a href="#precedent">Real-World Grounding</a></li>
+    <li><a href="#nabc">NABC Canvas</a></li>
+    <li><a href="#problem">Problem Statement</a></li>
+    <li><a href="#objectives">Objectives</a></li>
+
+    <div class="section-label">System Design</div>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#agents">Agent Design</a></li>
+    <li><a href="#scenario">Execution Scenario</a></li>
+    <li><a href="#constraints">Design Constraints</a></li>
+
+    <div class="section-label">Requirements</div>
+    <li><a href="#functional">Functional Req.</a></li>
+    <li><a href="#nonfunctional">Non-Functional Req.</a></li>
+    <li><a href="#tech">Tech Stack</a></li>
+
+    <div class="section-label">Delivery</div>
+    <li><a href="#scope">Scope & Limitations</a></li>
+    <li><a href="#stakeholders">Stakeholders</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="#risks">Risks</a></li>
+  </ul>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="tag">PSM1 · System Development · Simulation</div>
+    <h1>Multi-Agent UTM<br><span>Bus Fleet Optimization</span></h1>
+    <p>A demand-responsive campus shuttle system using autonomous agent coordination, graph-based pathfinding, and real-time queue simulation — replacing static fixed-loop routing with intelligent, decentralized decision-making.</p>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <div class="label">Course</div>
+        <div class="value">SECJ3032 PSM1</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Category</div>
+        <div class="value">System Development</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Core Tech</div>
+        <div class="value">MAS + Dijkstra + MQTT</div>
+      </div>
+      <div class="meta-card">
+        <div class="label">Deliverable</div>
+        <div class="value">Simulation + Dashboard</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1. OVERVIEW -->
+  <section id="overview">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>Project Overview</h2>
+    </div>
+
+    <p>UTM Skudai's campus shuttle service currently operates on <strong>fixed loops with fixed schedules</strong>. Buses complete the same route regardless of actual passenger demand — causing overcrowding at peak stops while other buses run nearly empty. This is a coordination failure: the information exists (students are queuing), but no mechanism acts on it intelligently.</p>
+
+    <p>This project proposes a <strong>Multi-Agent System (MAS)</strong> that transforms each bus and each bus stop into an autonomous agent. Stop Agents monitor queue levels and broadcast demand signals. Bus Agents receive those signals, evaluate whether rerouting serves more passengers efficiently, and update their routes dynamically — coordinating through a message broker without any central controller.</p>
+
+    <div class="callout green">
+      <div class="callout-title">Scope Clarification</div>
+      <p>This is a <strong>simulation system</strong>, not a live hardware deployment. Queue counts, bus positions, and passenger loads are all generated by a demand simulation engine — not measured from physical sensors. This is academically standard, and is consistent with how real production systems work: Skyss (Norway) and Moovit (Italy) both estimate stop demand <em>indirectly</em> through onboard boarding/alighting data rather than direct headcounts at stops. Your simulation applies the same indirect inference principle, using UTM's class schedule as the pattern source instead of historical APC sensor logs.</p>
+    </div>
+  </section>
+
+  <!-- 1.5 REAL-WORLD PRECEDENT -->
+  <section id="precedent">
+    <div class="section-header">
+      <span class="section-number">01.5</span>
+      <h2>Real-World Grounding</h2>
+    </div>
+
+    <p>A common question about this project is: <em>"If you can't measure the queue directly, is the simulation realistic?"</em> The answer is yes — and it's backed by how production transit systems actually work.</p>
+
+    <h3 class="accent-blue">Skyss — Norway</h3>
+    <p>Skyss (the public transit authority for Vestland county) estimates waiting passengers at stops <strong>indirectly</strong> through Automatic Passenger Counting (APC) data from onboard door sensors. By analysing boarding and alighting patterns across multiple trips — higher boardings during peak hours, consistent net inflows at certain stops — they model expected queue demand without any sensor physically at the stop. Sensor accuracy is 90–95%. This feeds real-time apps alerting users to wait times and crowded stops.</p>
+
+    <h3 class="accent-orange">Moovit — Italy</h3>
+    <p>Moovit infers stop crowding by combining APC onboard data with crowdsourced user reports. If APC shows heavy boardings relative to bus capacity, the system flags potential queuing. Algorithms weigh recent data in 10–30 minute rolling windows against schedule patterns to estimate current waiters — displaying levels like "uncrowded" or "full" to guide riders.</p>
+
+    <div class="callout green">
+      <div class="callout-title">Why This Matters for This Project</div>
+      <p>Both Skyss and Moovit confirm that <strong>direct headcounting at bus stops is neither standard nor necessary</strong> in production systems. Demand is always inferred from boarding/alighting patterns — the same principle your demand simulation engine applies. The only difference: Skyss uses years of real APC sensor logs; this project substitutes those with UTM's known class schedule patterns. This is a legitimate and directly citable justification for the simulation approach in the Literature Review.</p>
+    </div>
+
+    <h3 class="accent-green">Japan — Stop-Event Positioning</h3>
+    <p>Several Japanese city bus networks (Toyama, parts of Osaka feeder routes) use RFID transponders on buses with fixed readers at stops. When a bus passes, the reader logs: <em>Bus 7 passed Stop 14 at 09:23</em>. No GPS required — position is inferred from stop-event transitions. This is the real-world basis for this project's bus positioning model, where location is expressed as "last confirmed stop + ETA to next stop" rather than continuous coordinates.</p>
+  </section>
+
+  <!-- 2. NABC -->
+  <section id="nabc">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>NABC Canvas</h2>
+    </div>
+
+    <table class="doc-table">
+      <tr>
+        <th width="15%">Element</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td><strong>Need</strong></td>
+        <td>UTM Skudai's shuttle buses follow static fixed routes, creating chronic mismatches between bus supply and student demand — particularly during pre-lecture peaks (8:45am, 9:45am, 12:45pm). Students at high-demand stops like Arked Cengal face 20–30 minute waits while buses circulate with low occupancy elsewhere. No mechanism currently detects or responds to real-time demand.</td>
+      </tr>
+      <tr>
+        <td><strong>Approach</strong></td>
+        <td>A web-based simulation platform built on a Multi-Agent System architecture. Each bus stop is modelled as a Stop Agent; each bus is a Bus Agent with an internal state machine. Agents communicate via an MQTT message broker. Bus Agents run Dijkstra's algorithm on a weighted campus road graph to evaluate rerouting decisions. Queue demand is estimated indirectly through a simulation engine driven by UTM's class schedule patterns and rolling boarding/alighting history — consistent with the indirect APC-based inference approach used by Skyss (Norway) in production. A real-time dashboard visualises all agent states, routes, and decisions.</td>
+      </tr>
+      <tr>
+        <td><strong>Benefits</strong></td>
+        <td>Reduced average student wait time (validated by simulation metrics). Improved fleet load distribution. Decentralised design — no single point of failure. Agent decision logs provide full transparency on why each reroute occurred. Scalable: adding a new bus or stop means adding one new agent, not redesigning the system.</td>
+      </tr>
+      <tr>
+        <td><strong>Competition</strong></td>
+        <td>Existing UTM bus system (no intelligence). Generic GPS fleet trackers (centralised, no demand-response logic). Google Maps / Waze for Transit (external, no campus-specific demand awareness). Production demand-estimation systems like Skyss (Norway) and Moovit (Italy) use indirect APC inference but are centralised and not MAS-based. This system differs by combining MAS decentralisation with indirect demand inference and a bidirectional agent coordination protocol — applying the same estimation principle as production systems within a novel decentralised architecture.</td>
+      </tr>
+      <tr>
+        <td><strong>Stakeholder</strong></td>
+        <td>UTM Fleet Management / Student Transportation Office. Secondary: UTM students as end beneficiaries. Evidence of stakeholder willingness: interview or written acknowledgement from fleet coordinator confirming the demand mismatch problem exists.</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 3. PROBLEM STATEMENT -->
+  <section id="problem">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>Problem Statement</h2>
+    </div>
+
+    <p>The current UTM Skudai campus bus service operates on a <strong>static, schedule-driven model</strong> that is structurally unable to respond to real-time demand variation. Three specific problems arise from this:</p>
+
+    <h3 class="accent-blue">P1 — Demand-Supply Mismatch</h3>
+    <p>Bus routes and headways are fixed regardless of how many students are actually waiting. During pre-lecture periods, certain stops (Arked Cengal, PAP Indah) accumulate queues of 30–40 students while buses on other routes carry fewer than 10 passengers.</p>
+
+    <h3 class="accent-orange">P2 — No Coordination Between Buses</h3>
+    <p>Multiple buses operating simultaneously have no mechanism to communicate or avoid redundant coverage. Two buses can arrive at the same stop consecutively while another stop goes unserved for an extended period.</p>
+
+    <h3 class="accent-purple">P3 — No Feedback Loop</h3>
+    <p>Fleet managers have no visibility into real-time occupancy, queue distribution, or route efficiency. Decisions about route adjustments are made manually, reactively, and infrequently.</p>
+
+    <div class="callout orange">
+      <div class="callout-title">Why Existing Solutions Don't Solve This</div>
+      <p>Simple GPS trackers show <em>where</em> buses are but provide no demand intelligence. Centralised dispatch systems solve P2 but introduce a single point of failure and do not scale well. Standard scheduling software optimises for consistency, not responsiveness. A Multi-Agent System addresses all three problems through local agent reasoning producing globally adaptive behaviour.</p>
+    </div>
+  </section>
+
+  <!-- 4. OBJECTIVES -->
+  <section id="objectives">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>Objectives</h2>
+    </div>
+
+    <ol class="doc-list">
+      <li>To design and implement a Multi-Agent System in which bus and stop entities operate as autonomous agents capable of local decision-making without centralised control.</li>
+      <li>To model UTM Skudai's campus road network as a directed weighted graph and implement Dijkstra's algorithm for real-time route utility calculation by Bus Agents.</li>
+      <li>To develop a demand simulation engine that generates realistic queue and boarding data based on UTM's class schedule patterns, serving as the system's primary input source.</li>
+      <li>To implement an MQTT-based inter-agent communication protocol enabling Stop Agents to broadcast demand states and Bus Agents to coordinate task allocation without double-response conflicts.</li>
+      <li>To build a real-time web dashboard that visualises agent positions, states, route decisions, and system logs for fleet management use.</li>
+      <li>To evaluate the MAS system against a fixed-route baseline using average passenger wait time and bus utilisation rate as primary metrics.</li>
+    </ol>
+  </section>
+
+  <!-- 5. ARCHITECTURE -->
+  <section id="architecture">
+    <div class="section-header">
+      <span class="section-number">05</span>
+      <h2>System Architecture</h2>
+    </div>
+
+    <p>The system is structured into four layers that interact through well-defined interfaces:</p>
+
+    <div class="flow">
+      <div class="flow-step highlight">Demand Simulation Engine</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Stop Agents</div>
+      <div class="flow-arrow">⇄</div>
+      <div class="flow-step highlight">MQTT Broker</div>
+      <div class="flow-arrow">⇄</div>
+      <div class="flow-step">Bus Agents</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Dashboard UI</div>
+    </div>
+
+    <h3 class="accent-blue">Layer 1 — Graph Engine (Campus Digital Twin)</h3>
+    <p>UTM Skudai's road network is represented as a <strong>directed weighted graph</strong>. One-way roads are modelled as directed edges. Edge weights are dynamically updated by the formula:</p>
+    <div class="callout">
+      <p><code>W = W_distance × (1 + 1 / (Queue_count + 1))</code></p>
+      <p style="margin-top:8px; font-size:13px;">A higher queue at the destination lowers the edge weight penalty (making it more attractive to route toward). Distance remains the base weight — the formula balances urgency against travel cost.</p>
+    </div>
+
+    <p><strong>Named stops in the graph</strong> (based on actual UTM Skudai routes):</p>
+    <ul class="doc-list">
+      <li>Arked Cengal (highest demand during AM peak)</li>
+      <li>Arked Angkasa</li>
+      <li>PAP Indah</li>
+      <li>Kolej Tun Razak (KTR)</li>
+      <li>Kolej Datin Seri Endon (KDSE)</li>
+      <li>Kolej Tun Fatimah (KTF)</li>
+      <li>Fakulti Komputeran (FC)</li>
+      <li>Fakulti Kejuruteraan (FK)</li>
+      <li>Bangunan Canselori / Admin Hub</li>
+    </ul>
+
+    <h3 class="accent-orange">Layer 2 — Agent Layer</h3>
+    <p>See Section 06 (Agent Design) for full detail. All agents run as concurrent processes, each maintaining their own state and communicating only via the MQTT broker — never directly calling each other.</p>
+
+    <h3 class="accent-green">Layer 3 — MQTT Communication Layer</h3>
+    <p>A <strong>Mosquitto MQTT broker</strong> (running locally) handles all inter-agent messaging. Topic structure:</p>
+    <table class="doc-table">
+      <tr><th>Topic</th><th>Publisher</th><th>Subscriber</th><th>Payload</th></tr>
+      <tr><td><code>stops/{id}/state</code></td><td>Stop Agent</td><td>All Bus Agents</td><td>Queue count, priority level</td></tr>
+      <tr><td><code>buses/{id}/state</code></td><td>Bus Agent</td><td>Dashboard, other Bus Agents</td><td>Position, load, status, current route</td></tr>
+      <tr><td><code>tasks/{stop_id}/claim</code></td><td>Bus Agent</td><td>All Bus Agents</td><td>Claim lock to prevent double-response</td></tr>
+      <tr><td><code>system/log</code></td><td>All Agents</td><td>Dashboard</td><td>Decision events and reasoning strings</td></tr>
+    </table>
+
+    <h3 class="accent-purple">Layer 4 — Dashboard UI</h3>
+    <p>A web interface (React or plain HTML/JS with Leaflet.js map) showing: live bus positions on a UTM campus map, stop queue heatmap (green/yellow/red), per-bus state and load bar, agent decision log feed, and simulation controls (speed, scenario selector, manual override).</p>
+  </section>
+
+  <!-- 6. AGENT DESIGN -->
+  <section id="agents">
+    <div class="section-header">
+      <span class="section-number">06</span>
+      <h2>Agent Design</h2>
+    </div>
+
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="agent-name">Stop Agent</div>
+        <div class="agent-type">Reactive Agent · One per Bus Stop</div>
+        <ul>
+          <li>Receives queue count from demand simulation engine every 5 seconds</li>
+          <li>Classifies queue into LOW / MEDIUM / HIGH / CRITICAL thresholds</li>
+          <li>Broadcasts demand state to MQTT topic <code>stops/{id}/state</code></li>
+          <li>Monitors whether a Bus Agent has claimed the stop and suppresses re-broadcast if already claimed</li>
+          <li>Resets claim status after bus departs and queue drops below threshold</li>
+        </ul>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-name">Bus Agent</div>
+        <div class="agent-type">Deliberative Agent · One per Bus</div>
+        <ul>
+          <li>Maintains state machine: <code>Idle → Commuting → Boarding → Recalculating</code></li>
+          <li>Subscribes to all Stop Agent broadcasts on MQTT</li>
+          <li>On receiving HIGH/CRITICAL signal: runs Dijkstra to calculate Utility Score for diverting</li>
+          <li>Checks capacity constraint before accepting divert (will not reroute if load ≥ 85%)</li>
+          <li>Checks time buffer constraint (will not reroute if current passengers are within 8 min of their drop-off)</li>
+          <li>Publishes claim lock if diverting; ignores broadcast if another Bus Agent already claimed</li>
+          <li>Reverts to default route if MQTT broker is unavailable (graceful degradation)</li>
+        </ul>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-name">Demand Simulation Engine</div>
+        <div class="agent-type">Environment Model · Not an Agent</div>
+        <ul>
+          <li>Generates queue counts per stop based on time-of-day and UTM class schedule</li>
+          <li>Models pre-lecture peaks (8:45, 9:45, 11:45, 12:45, 2:45pm) as demand spikes</li>
+          <li>Tracks rolling boarding/alighting history per stop (mirrors Skyss APC indirect inference approach)</li>
+          <li>Adjusts demand estimates based on recent net inflow patterns at each stop</li>
+          <li>Simulates infrared counter logic: net passengers = board − alight per stop</li>
+          <li>Configurable: noise factor, peak intensity, scenario presets</li>
+        </ul>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-name">Dashboard Controller</div>
+        <div class="agent-type">Observer / Admin Interface</div>
+        <ul>
+          <li>Subscribes to all MQTT topics in read-only mode</li>
+          <li>Renders bus positions, routes, and stop states in real-time</li>
+          <li>Displays agent decision log with timestamps and reasoning</li>
+          <li>Allows admin to manually override a bus route (publish to override topic)</li>
+          <li>Provides simulation controls: play, pause, speed multiplier, scenario select</li>
+          <li>Shows comparison metrics: MAS mode vs Fixed Route mode side-by-side</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="accent-blue">Bus Agent State Machine</h3>
+    <div class="flow" style="margin-top:12px;">
+      <div class="flow-step">Idle</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight">Commuting</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Boarding</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step highlight">Recalculating</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">Commuting</div>
+    </div>
+    <p style="margin-top:12px; font-size:13px; color:var(--muted);">Recalculating is triggered when a HIGH/CRITICAL stop broadcast is received while Commuting. The agent evaluates divert utility, then transitions back to Commuting on the new or same route.</p>
+  </section>
+
+  <!-- 7. EXECUTION SCENARIO -->
+  <section id="scenario">
+    <div class="section-header">
+      <span class="section-number">07</span>
+      <h2>Execution Scenario (Walkthrough)</h2>
+    </div>
+
+    <p>The following traces a single demand-response event as it flows through the full system at <strong>8:47am on a Tuesday</strong>:</p>
+
+    <div class="scenario">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">Demand engine generates queue = <strong>38</strong> at Arked Cengal (pre-9am lecture peak). Stop Agent classifies this as <strong>CRITICAL</strong>.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">Stop Agent publishes to <code>stops/arked_cengal/state</code>: <code>{ queue: 38, priority: CRITICAL, claimed: false }</code></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text"><strong>Bus Agent 1</strong> (near KDSE, load: 6/28, state: Commuting) receives the broadcast. Runs Dijkstra: divert adds 2.3 min to route. Checks time buffer: current 6 passengers are 9 min from their drop-off. Buffer clears. Calculates Utility Score: HIGH. Decides to divert.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-text">Bus Agent 1 publishes claim to <code>tasks/arked_cengal/claim</code>. Transitions state to <strong>Recalculating</strong>, updates Route_Vector, transitions back to Commuting on new route.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-text"><strong>Bus Agent 2</strong> (near FK, load: 24/28, state: Commuting) also received the broadcast. Checks capacity: load ≥ 85%. Constraint fails. <strong>Ignores broadcast</strong>. Continues current route.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-text">Stop Agent receives claim from Bus 1. Sets <code>claimed: true</code>, suppresses further broadcasts for this demand event.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">7</div>
+        <div class="step-text">Bus 1 arrives at Arked Cengal 5.8 min later. Boarding simulation: 28 passengers board (fills bus). Alighting simulation: 6 alight at Cengal. Net load: 28/28 (full).</div>
+      </div>
+      <div class="step">
+        <div class="step-num">8</div>
+        <div class="step-text">Dashboard logs: <em>"08:47:12 — Bus 1 diverted to Arked Cengal. Reason: Queue CRITICAL (38). Utility score: 0.84. Constraint checks passed."</em> Queue wait time for those 38 students: <strong>~6 min vs ~22 min baseline.</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. DESIGN CONSTRAINTS -->
+  <section id="constraints">
+    <div class="section-header">
+      <span class="section-number">08</span>
+      <h2>Design Constraints & Rules</h2>
+    </div>
+
+    <p>These rules are hard-coded into Bus Agent logic to prevent the system from optimising itself into a user-hostile state:</p>
+
+    <table class="doc-table">
+      <tr><th>Constraint</th><th>Rule</th><th>Rationale</th></tr>
+      <tr>
+        <td><strong>Minimum Service Guarantee</strong></td>
+        <td>Every stop must receive a bus visit at least once every 20 minutes, regardless of demand signals.</td>
+        <td>Prevents low-demand stops from being permanently ignored by the optimisation logic.</td>
+      </tr>
+      <tr>
+        <td><strong>Capacity Lock</strong></td>
+        <td>Bus Agent will not accept a divert if current load ≥ 85% of max capacity (≥24/28).</td>
+        <td>Prevents routing a full bus to a high-demand stop, which helps no one.</td>
+      </tr>
+      <tr>
+        <td><strong>Passenger Time Buffer</strong></td>
+        <td>Bus Agent will not divert if any current passenger's drop-off is within 8 minutes of a class start slot.</td>
+        <td>Protects current passengers from being made late due to a reroute.</td>
+      </tr>
+      <tr>
+        <td><strong>Claim Lock (Anti Double-Response)</strong></td>
+        <td>Once one Bus Agent claims a high-demand stop, all other agents suppress their response to that same event.</td>
+        <td>Prevents two buses racing to the same stop, leaving other stops unserved.</td>
+      </tr>
+      <tr>
+        <td><strong>Directed Graph Compliance</strong></td>
+        <td>Route recalculations must comply with the directed graph — one-way roads cannot be traversed in reverse.</td>
+        <td>Reflects UTM's actual one-way road segments (e.g., the road past Arked Angkasa).</td>
+      </tr>
+      <tr>
+        <td><strong>Graceful Degradation</strong></td>
+        <td>If the MQTT broker is unreachable for &gt;10 seconds, all Bus Agents revert to their default fixed route.</td>
+        <td>Ensures the system fails safely — no bus is left without instructions.</td>
+      </tr>
+    </table>
+
+    <div class="callout red">
+      <div class="callout-title">Known Unresolved Tradeoff</div>
+      <p>Dynamic routing cannot fully guarantee consistent journey times for through-passengers. A student boarding at KTR heading to FC may experience a slightly longer journey if their bus diverts en route. The time buffer constraint <em>reduces</em> this risk but does not eliminate it. This is acknowledged as a system limitation in scope.</p>
+    </div>
+  </section>
+
+  <!-- 9. FUNCTIONAL REQUIREMENTS -->
+  <section id="functional">
+    <div class="section-header">
+      <span class="section-number">09</span>
+      <h2>Functional Requirements</h2>
+    </div>
+
+    <h3 class="accent-blue">FR1 — Campus Graph</h3>
+    <ul class="doc-list">
+      <li>System shall represent UTM Skudai bus network as a directed weighted graph with named nodes and edges.</li>
+      <li>Edge weights shall be dynamically recalculated based on queue data from Stop Agents.</li>
+      <li>Graph shall support Dijkstra's shortest/optimal path query per Bus Agent request.</li>
+    </ul>
+
+    <h3 class="accent-orange">FR2 — Stop Agent Behaviour</h3>
+    <ul class="doc-list">
+      <li>Each Stop Agent shall receive queue count input every simulation tick (5 seconds).</li>
+      <li>Each Stop Agent shall classify queue level into thresholds: LOW (&lt;5), MEDIUM (5–15), HIGH (16–30), CRITICAL (&gt;30).</li>
+      <li>Stop Agent shall publish demand state to MQTT only when status changes or at 30-second intervals.</li>
+      <li>Stop Agent shall track claim status and suppress redundant broadcasts.</li>
+    </ul>
+
+    <h3 class="accent-green">FR3 — Bus Agent Behaviour</h3>
+    <ul class="doc-list">
+      <li>Bus Agent shall maintain and publish its state, position (last stop + ETA), load count, and route at all times.</li>
+      <li>Bus Agent shall evaluate rerouting utility on receipt of HIGH or CRITICAL stop broadcasts.</li>
+      <li>Bus Agent shall check all three constraints (capacity, time buffer, claim lock) before accepting any divert.</li>
+      <li>Bus Agent shall publish a claim lock before diverting and release it after completing the stop visit.</li>
+      <li>Bus Agent shall log all decisions (reroute accepted, reroute rejected, reason) to the system log topic.</li>
+    </ul>
+
+    <h3 class="accent-purple">FR4 — Dashboard</h3>
+    <ul class="doc-list">
+      <li>Dashboard shall display all bus positions on a schematic UTM campus map updated every simulation tick.</li>
+      <li>Dashboard shall display per-stop queue level with colour coding.</li>
+      <li>Dashboard shall show a scrollable decision log with timestamps and reasoning.</li>
+      <li>Dashboard shall provide simulation controls: play/pause, speed (1×, 5×, 10×), scenario preset selector.</li>
+      <li>Dashboard shall display side-by-side comparison metrics: MAS mode vs Fixed Route baseline.</li>
+      <li>Admin user shall be able to manually override any bus's current route via the dashboard.</li>
+    </ul>
+
+    <h3 class="accent-blue">FR5 — Demand Simulation Engine</h3>
+    <ul class="doc-list">
+      <li>Engine shall generate queue counts per stop based on configurable time-of-day demand profiles.</li>
+      <li>Engine shall model lecture-time demand spikes at defined time slots.</li>
+      <li>Engine shall simulate boarding and alighting volumes per bus stop visit.</li>
+      <li>Engine shall support scenario presets: Normal Day, Peak Morning, Exam Week, Low Demand.</li>
+    </ul>
+  </section>
+
+  <!-- 10. NON-FUNCTIONAL REQUIREMENTS -->
+  <section id="nonfunctional">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <h2>Non-Functional Requirements</h2>
+    </div>
+
+    <table class="doc-table">
+      <tr><th>Category</th><th>Requirement</th></tr>
+      <tr>
+        <td><strong>Performance</strong></td>
+        <td>Agent decision cycle (receive broadcast → evaluate → publish response) shall complete within 500ms per agent. Dijkstra computation on the campus graph (≤15 nodes) shall complete in under 50ms.</td>
+      </tr>
+      <tr>
+        <td><strong>Reliability</strong></td>
+        <td>System shall enter graceful degradation (fixed-route fallback) within 10 seconds of MQTT broker loss. No agent shall enter an undefined state under any simulated input combination.</td>
+      </tr>
+      <tr>
+        <td><strong>Scalability</strong></td>
+        <td>Adding a new bus or stop shall require only adding a new agent instance with configuration — no changes to core coordination logic.</td>
+      </tr>
+      <tr>
+        <td><strong>Usability</strong></td>
+        <td>Dashboard shall be operable by a non-technical fleet manager with no training beyond a 5-minute orientation. Driver route display shall show only next waypoint and direction — no complex UI.</td>
+      </tr>
+      <tr>
+        <td><strong>Maintainability</strong></td>
+        <td>Agent logic and graph configuration shall be separated into distinct modules. Demand profiles shall be editable via configuration file without code changes.</td>
+      </tr>
+      <tr>
+        <td><strong>Testability</strong></td>
+        <td>All agent decision logic shall be unit-testable with deterministic inputs. System shall support a headless simulation mode (no UI) for automated test runs.</td>
+      </tr>
+    </table>
+  </section>
+
+  <!-- 11. TECH STACK -->
+  <section id="tech">
+    <div class="section-header">
+      <span class="section-number">11</span>
+      <h2>Technology Stack</h2>
+    </div>
+
+    <div class="callout green">
+      <div class="callout-title">Budget: Zero</div>
+      <p>All technologies selected are free and open-source. No LLM APIs, no cloud hosting costs, no paid services required. Everything runs locally on a development machine.</p>
+    </div>
+
+    <table class="doc-table">
+      <tr><th>Component</th><th>Technology</th><th>Justification</th></tr>
+      <tr>
+        <td><strong>Agent Runtime</strong></td>
+        <td>Python 3.x</td>
+        <td>Strong MQTT library support (paho-mqtt), clean multiprocessing/threading for concurrent agents, easy graph library integration.</td>
+      </tr>
+      <tr>
+        <td><strong>Graph & Pathfinding</strong></td>
+        <td>NetworkX (Python)</td>
+        <td>Built-in Dijkstra implementation, directed graph support, lightweight. No external dependency cost.</td>
+      </tr>
+      <tr>
+        <td><strong>Message Broker</strong></td>
+        <td>Eclipse Mosquitto (MQTT)</td>
+        <td>Industry-standard, free, runs locally. Lightweight enough for simulation scale. Well-documented.</td>
+      </tr>
+      <tr>
+        <td><strong>Dashboard Frontend</strong></td>
+        <td>React + Leaflet.js <em>or</em> plain HTML/JS</td>
+        <td>Leaflet provides free campus map rendering. React state management suits real-time updates. Plain HTML/JS is fallback if complexity is a concern.</td>
+      </tr>
+      <tr>
+        <td><strong>Dashboard Backend</strong></td>
+        <td>FastAPI (Python) + WebSockets</td>
+        <td>Lightweight, fast to set up, native WebSocket support for pushing real-time agent states to the browser.</td>
+      </tr>
+      <tr>
+        <td><strong>Data / Config</strong></td>
+        <td>JSON files</td>
+        <td>Graph topology, stop coordinates, demand profiles, and agent configurations stored as JSON — human-readable, version-controllable, no database needed.</td>
+      </tr>
+      <tr>
+        <td><strong>Testing</strong></td>
+        <td>pytest</td>
+        <td>Unit tests for agent decision logic, graph calculations, and constraint checks.</td>
+      </tr>
+    </table>
+
+    <div class="callout purple">
+      <div class="callout-title">On LangGraph / LLMs</div>
+      <p>LangGraph is designed for orchestrating LLM-based agents and is not appropriate here. Bus Agents are rule-based state machines with deterministic logic — LLMs would add cost, non-determinism, and latency without any benefit. If a natural language query interface ("which bus is closest to FC?") is desired as an optional add-on, a lightweight LLM API call could be added in the final weeks of development only if time permits.</p>
+    </div>
+  </section>
+
+  <!-- 12. SCOPE & LIMITATIONS -->
+  <section id="scope">
+    <div class="section-header">
+      <span class="section-number">12</span>
+      <h2>Scope & Limitations</h2>
+    </div>
+
+    <h3 class="accent-green">In Scope</h3>
+    <ul class="doc-list">
+      <li>Full MAS implementation: Stop Agents, Bus Agents, MQTT coordination layer</li>
+      <li>Directed weighted campus graph of UTM Skudai shuttle network</li>
+      <li>Demand simulation engine with time-aware queue generation</li>
+      <li>Real-time web dashboard with map visualisation and decision logs</li>
+      <li>Comparison evaluation: MAS mode vs. fixed-route baseline</li>
+      <li>Admin manual override functionality</li>
+      <li>Unit tests for agent decision logic and constraint rules</li>
+    </ul>
+
+    <h3 class="accent-orange">Out of Scope (This Semester)</h3>
+    <ul class="doc-list">
+      <li>Live hardware deployment on actual UTM buses</li>
+      <li>Real-time GPS tracking or physical RFID sensors</li>
+      <li>Student-facing mobile app (dashboard is fleet-manager only)</li>
+      <li>Integration with UTM's existing IT or transportation systems</li>
+      <li>Multi-route optimisation across more than one bus line simultaneously (single corridor simulation)</li>
+    </ul>
+
+    <h3 class="accent-purple">Acknowledged Limitations</h3>
+    <ul class="doc-list">
+      <li>Queue data is simulated, not measured — real deployment would require physical counters or camera-based detection at stops</li>
+      <li>Bus position uses stop-event-based tracking (last confirmed stop + ETA), not continuous GPS coordinates</li>
+      <li>Time buffer constraint reduces but does not eliminate the risk of through-passengers experiencing longer journeys during reroutes</li>
+      <li>Demand model is calibrated to general UTM patterns, not validated against actual ridership data</li>
+    </ul>
+
+    <div class="callout green">
+      <div class="callout-title">Real-World Deployment Path — System Maturity</div>
+      <p>The simulation proves the agent coordination logic first. Physical deployment builds on top of it in stages — the only hardware needed to start is a <strong>cheap infrared door counter on each bus</strong>.</p>
+    </div>
+
+    <h3 class="accent-blue">Four Phases of Maturity</h3>
+    <table class="doc-table">
+      <tr><th>Phase</th><th>What Changes</th><th>Demand Source</th></tr>
+      <tr>
+        <td><strong>Phase 1 — PSM1 (Now)</strong></td>
+        <td>Simulation only. Agent logic proven. No hardware.</td>
+        <td>Class schedule model</td>
+      </tr>
+      <tr>
+        <td><strong>Phase 2 — Early Deployment</strong></td>
+        <td>Infrared door counters fitted on buses. Real boarding/alighting data starts accumulating.</td>
+        <td>Schedule model + real boarding logs begin building</td>
+      </tr>
+      <tr>
+        <td><strong>Phase 3 — Pattern Refinement</strong></td>
+        <td>After 1–2 semesters of real data, system overrides schedule where real patterns differ. Rainy days, exam weeks, Friday slots all detected automatically.</td>
+        <td>Boarding history overrides schedule where they diverge</td>
+      </tr>
+      <tr>
+        <td><strong>Phase 4 — Skyss Level</strong></td>
+        <td>Boarding history alone predicts demand accurately. Schedule becomes fallback only. Prediction improves every semester automatically.</td>
+        <td>Boarding history (APC equivalent) — schedule as fallback</td>
+      </tr>
+    </table>
+
+    <div class="callout">
+      <div class="callout-title">Why the Door Counter Is the Only Critical Hardware</div>
+      <p>It is cheap, privacy-safe (counts people, doesn't identify them), mounts at the bus door with no stop infrastructure needed, and produces exactly the boarding/alighting data that feeds the improvement loop — the same data Skyss (Norway), NUS/NTU Singapore, and Seoul campus shuttles rely on. Every semester of real operation makes the demand model more accurate without any code changes.</p>
+    </div>
+  </section>
+
+  <!-- 13. STAKEHOLDERS -->
+  <section id="stakeholders">
+    <div class="section-header">
+      <span class="section-number">13</span>
+      <h2>Stakeholders</h2>
+    </div>
+
+    <table class="doc-table">
+      <tr><th>Stakeholder</th><th>Role</th><th>Engagement</th></tr>
+      <tr>
+        <td><strong>UTM Fleet Management / Transportation Office</strong></td>
+        <td>Primary stakeholder. Owns the problem. Would operate the dashboard in a real deployment.</td>
+        <td>Interview to confirm problem statement. Written or verbal acknowledgement of demand mismatch issue. Provide bus stop names and rough route map for graph construction.</td>
+      </tr>
+      <tr>
+        <td><strong>UTM Students</strong></td>
+        <td>End beneficiaries. Experience the wait time problem directly.</td>
+        <td>Informal survey or observation data to calibrate demand model peak times. Not required for formal stakeholder consent.</td>
+      </tr>
+      <tr>
+        <td><strong>PSM1 Supervisor</strong></td>
+        <td>Academic supervisor. Proposed the UTM bus idea.</td>
+        <td>Regular check-ins aligned to PSM1 calendar milestones.</td>
+      </tr>
+    </table>
+
+    <div class="callout orange">
+      <div class="callout-title">Stakeholder Evidence Requirement</div>
+      <p>The NABC form requires evidence of stakeholder agreement for System Development-based projects. A brief email or WhatsApp message from the UTM Transportation Office acknowledging that the queue mismatch problem exists is sufficient. You do not need them to approve your technical solution — just confirm the problem is real.</p>
+    </div>
+  </section>
+
+  <!-- 14. TIMELINE -->
+  <section id="timeline">
+    <div class="section-header">
+      <span class="section-number">14</span>
+      <h2>Delivery Timeline</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="tl-date">By 3 Apr 2026 — Week 3</div>
+        <div class="tl-title">Project Proposal Submission</div>
+        <div class="tl-desc">NABC form completed. Use case diagram drawn. Stakeholder evidence obtained. Campus graph defined with all stop names. Tech stack confirmed.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">By 15 May 2026 — Week 9 (Progress 1)</div>
+        <div class="tl-title">Literature Review + Problem Statement + Core Agent Logic</div>
+        <div class="tl-desc">Literature review covering MAS theory, graph-based routing, campus transit systems (cite Japanese RFID stop-event positioning, Singapore NUS/NTU, Skyss Norway APC indirect demand estimation, Moovit Italy hybrid inference). Problem statement formalised. Dijkstra on campus graph working. Stop Agent and Bus Agent state machine coded and unit tested.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">By 29 May 2026 — Week 11 (Progress 2)</div>
+        <div class="tl-title">Full System Integration + Dashboard</div>
+        <div class="tl-desc">MQTT broker running. All agents communicating. Demand simulation engine producing time-aware queue data. Dashboard showing live agent states. Constraint rules implemented and tested.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">By 25 Jun 2026 — Week 15</div>
+        <div class="tl-title">Final Report Submission</div>
+        <div class="tl-desc">Full PSM1 report submitted. Evaluation chapter with MAS vs fixed-route metric comparison. Turnitin similarity &lt;20%, AI-generated text &lt;20%. Presentation slides ready.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="tl-date">Week 16</div>
+        <div class="tl-title">PSM1 Presentation & Evaluation</div>
+        <div class="tl-desc">Live demo of simulation dashboard. Agent decision log walkthrough. Metric comparison presented to panel.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. RISKS -->
+  <section id="risks">
+    <div class="section-header">
+      <span class="section-number">15</span>
+      <h2>Risks & Mitigations</h2>
+    </div>
+
+    <table class="doc-table">
+      <tr><th>Risk</th><th>Likelihood</th><th>Mitigation</th></tr>
+      <tr>
+        <td><strong>Stakeholder unresponsive (no evidence letter)</strong></td>
+        <td><span class="badge badge-orange">Medium</span></td>
+        <td>Approach multiple points of contact (transportation office, college office, bus driver supervisor). A WhatsApp screenshot acknowledging the queue problem is sufficient — not a formal letter.</td>
+      </tr>
+      <tr>
+        <td><strong>MQTT concurrency bugs (race conditions in claim lock)</strong></td>
+        <td><span class="badge badge-orange">Medium</span></td>
+        <td>Use MQTT QoS level 1 (at-least-once delivery) for claim messages. Unit test the claim/release cycle exhaustively with simulated concurrent agents.</td>
+      </tr>
+      <tr>
+        <td><strong>Dashboard complexity overruns schedule</strong></td>
+        <td><span class="badge badge-blue">Low-Medium</span></td>
+        <td>Build dashboard in two phases: Phase 1 is a simple text log + static map (enough for Progress 2). Phase 2 adds the live Leaflet map and animations only if Phase 1 is completed on time.</td>
+      </tr>
+      <tr>
+        <td><strong>Demand model too simplistic — panel questions validity</strong></td>
+        <td><span class="badge badge-blue">Low</span></td>
+        <td>Calibrate demand model using UTM's public class timetable structure (8am–6pm slots) and state this explicitly. Cite transit demand modelling papers. Panels accept simulation-based validation when methodology is clearly explained.</td>
+      </tr>
+      <tr>
+        <td><strong>Topic rejected by supervisor for overlap with classmates</strong></td>
+        <td><span class="badge badge-green">Very Low</span></td>
+        <td>The MAS architecture + Dijkstra + MQTT combination is sufficiently specific that even if a classmate picks the "UTM bus" base idea, your implementation differs fundamentally. Confirm with supervisor early.</td>
+      </tr>
+      <tr>
+        <td><strong>Turnitin AI-detection flags report</strong></td>
+        <td><span class="badge badge-orange">Medium</span></td>
+        <td>Write all report sections in your own voice. Use AI tools only for brainstorming and outline, never for generating final prose. Run Turnitin check by Week 13 to allow revision time before Week 15 deadline.</td>
+      </tr>
+    </table>
+  </section>
+
+</main>
+
+<script>
+  // Scroll progress bar
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    document.getElementById('progress-bar').style.width = progress + '%';
+  });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section, .hero');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
