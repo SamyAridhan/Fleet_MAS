@@ -296,6 +296,21 @@
       <h3>Gets Smarter Over Time</h3>
       <p>Every student tap builds a richer picture of real demand patterns on campus. The more students use it, the more accurate the system becomes.</p>
     </div>
+    <div class="bcard">
+      <span class="bico">📡</span>
+      <h3>IoT-Native from Day One</h3>
+      <p>Student phones, bus GPS trackers, and future smart sensors at stops all speak the same protocol — MQTT, the backbone of modern IoT. The system is ready for physical hardware without redesign.</p>
+    </div>
+    <div class="bcard">
+      <span class="bico">🤖</span>
+      <h3>AI That Actually Makes Sense</h3>
+      <p>A lightweight AI model watches incoming demand signals and flags anything that looks abnormal — protecting the system from bad data before it can trigger a wrong decision.</p>
+    </div>
+    <div class="bcard">
+      <span class="bico">🌍</span>
+      <h3>Built for More Than UTM</h3>
+      <p>Every UTM-specific detail lives in a config file. Any university, hospital shuttle, or corporate bus operator can deploy the same system by swapping config — no code changes needed.</p>
+    </div>
   </div>
 </section>
 
@@ -377,8 +392,8 @@
   <div class="tech-inner">
     <div class="reveal">
       <div class="section-label">Under the Hood</div>
-      <h2>Proven tools.<br><em>Zero cost.</em></h2>
-      <p class="tech-note">Everything is industry-standard, free, and runs entirely on a local machine. No API subscriptions, no cloud bills, no UTM IT infrastructure dependency.</p>
+      <h2>Proven tools.<br><em>IoT &amp; AI included.</em></h2>
+      <p class="tech-note">All core components are free and run locally. IoT hardware marked with * is Future Work — the architecture already supports it through a pluggable sensor interface.</p>
     </div>
     <div class="tgroups reveal">
       <div class="tgroup">
@@ -409,14 +424,53 @@
         </div>
       </div>
       <div class="tgroup">
+        <div class="tglabel">IoT Layer</div>
+        <div class="tpills">
+          <span class="tpill">MQTT Protocol</span>
+          <span class="tpill">GPS Sensing</span>
+          <span class="tpill">mmWave Radar*</span>
+          <span class="tpill">APC Sensors*</span>
+        </div>
+      </div>
+      <div class="tgroup">
+        <div class="tglabel">AI Component</div>
+        <div class="tpills">
+          <span class="tpill">Isolation Forest</span>
+          <span class="tpill">Anomaly Detection</span>
+          <span class="tpill">scikit-learn</span>
+        </div>
+      </div>
+      <div class="tgroup">
         <div class="tglabel">Data &amp; Testing</div>
         <div class="tpills">
           <span class="tpill">SQLite</span>
           <span class="tpill">pytest</span>
-          <span class="tpill">14 Test Cases</span>
+          <span class="tpill">16 Test Cases</span>
           <span class="tpill">Black Box Testing</span>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- GENERALISE -->
+<div style="background:var(--ink);padding:80px 32px;text-align:center;">
+  <div style="max-width:700px;margin:0 auto;" class="reveal">
+    <div class="section-label" style="color:var(--yellow);justify-content:center;">
+      <span style="display:block;width:28px;height:2px;background:var(--yellow);border-radius:2px;"></span>
+      Beyond UTM
+    </div>
+    <h2 style="color:var(--white);font-size:clamp(28px,4vw,48px);">
+      Built for UTM.<br><em style="color:var(--yellow);">Designed for anywhere.</em>
+    </h2>
+    <p style="color:rgba(255,255,255,.55);font-size:18px;max-width:560px;margin:0 auto 40px;">
+      Every UTM-specific detail — stop names, routes, schedules, capacity — lives in a config file. Any transit operator swaps their own config and the system works. No code changes. No redesign.
+    </p>
+    <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;">
+      <span style="background:rgba(255,217,61,.12);border:1.5px solid rgba(255,217,61,.3);color:var(--yellow);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;padding:8px 18px;border-radius:100px;">🏫 Any University</span>
+      <span style="background:rgba(255,217,61,.12);border:1.5px solid rgba(255,217,61,.3);color:var(--yellow);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;padding:8px 18px;border-radius:100px;">🏥 Hospital Shuttles</span>
+      <span style="background:rgba(255,217,61,.12);border:1.5px solid rgba(255,217,61,.3);color:var(--yellow);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;padding:8px 18px;border-radius:100px;">🏭 Corporate Buses</span>
+      <span style="background:rgba(255,217,61,.12);border:1.5px solid rgba(255,217,61,.3);color:var(--yellow);font-family:'Space Mono',monospace;font-size:12px;font-weight:700;padding:8px 18px;border-radius:100px;">🏙️ Any Fixed Route</span>
     </div>
   </div>
 </div>
