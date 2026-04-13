@@ -48,7 +48,15 @@
   /* PROBLEM */
   .problem-wrap{background:var(--white);padding:100px 0;}
   .problem-inner{max-width:1100px;margin:0 auto;padding:0 32px;}
-  .problem-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:56px;}
+
+  /* CENTRAL PROBLEM STATEMENT — new */
+  .central-problem{background:var(--ink);border-radius:20px;padding:44px 48px;margin-bottom:56px;position:relative;overflow:hidden;}
+  .central-problem::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 10% 50%,rgba(255,107,53,.18) 0%,transparent 60%);pointer-events:none;}
+  .central-problem .cp-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--orange);font-weight:700;margin-bottom:16px;}
+  .central-problem blockquote{font-family:'Fraunces',serif;font-size:clamp(20px,2.5vw,28px);font-weight:700;color:var(--white);line-height:1.5;font-style:italic;position:relative;z-index:1;}
+  .central-problem blockquote em{color:var(--yellow);font-style:normal;}
+
+  .problem-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:0;}
   .pcard{border-radius:20px;padding:36px 32px;}
   .pcard.c1{background:#FFF3E0;}.pcard.c2{background:#E8F5E9;}.pcard.c3{background:#EDE7F6;}
   .pcard .ico{font-size:44px;margin-bottom:20px;display:block;}
@@ -58,6 +66,14 @@
   .c1 .stat{background:rgba(255,107,53,.14);color:var(--orange);}
   .c2 .stat{background:rgba(82,183,136,.15);color:#2E8A57;}
   .c3 .stat{background:rgba(155,93,229,.14);color:var(--purple);}
+
+  /* LOCAL EVIDENCE STRIP — new */
+  .evidence-strip{background:#FFFBF0;border:2px solid rgba(255,107,53,.2);border-radius:16px;padding:32px 36px;margin-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;}
+  .evidence-strip .ev-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--orange);font-weight:700;margin-bottom:20px;grid-column:1/-1;}
+  .ev-item{display:flex;align-items:flex-start;gap:14px;}
+  .ev-icon{font-size:28px;flex-shrink:0;line-height:1;}
+  .ev-text h4{font-family:'Fraunces',serif;font-size:17px;font-weight:900;color:var(--ink);margin-bottom:4px;}
+  .ev-text p{font-size:14px;color:#6A6A88;line-height:1.6;}
 
   /* HOW IT WORKS */
   .how-wrap{background:var(--ink);padding:100px 0;}
@@ -81,6 +97,26 @@
   .lcontent p{color:rgba(255,255,255,.58);font-size:17px;max-width:600px;line-height:1.75;}
   .lchips{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;}
   .lchip{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.72);font-size:14px;font-weight:700;padding:5px 14px;border-radius:100px;}
+
+  /* PAJ RELATIONSHIP — new */
+  .paj-wrap{background:#F0FDF4;padding:80px 0;}
+  .paj-inner{max-width:1100px;margin:0 auto;padding:0 32px;}
+  .paj-inner .section-label{color:var(--green);}.paj-inner .section-label::before{background:var(--green);}
+  .paj-inner h2 em{color:var(--green);}
+  .paj-grid{display:grid;grid-template-columns:1fr 80px 1fr;gap:0;margin-top:56px;align-items:center;}
+  .paj-box{background:var(--white);border-radius:20px;padding:36px 32px;box-shadow:0 4px 20px rgba(82,183,136,.1);}
+  .paj-box .pb-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:12px;}
+  .paj-box.theirs .pb-label{color:#888;}
+  .paj-box.ours .pb-label{color:var(--green);}
+  .paj-box h3{font-family:'Fraunces',serif;font-size:22px;font-weight:900;color:var(--ink);margin-bottom:12px;line-height:1.2;}
+  .paj-box p{font-size:15px;color:#6A6A88;line-height:1.65;}
+  .paj-box ul{list-style:none;margin-top:12px;}
+  .paj-box ul li{font-size:15px;color:#6A6A88;padding:3px 0;display:flex;align-items:flex-start;gap:8px;}
+  .paj-box.theirs li::before{content:'✓';color:#888;font-weight:900;flex-shrink:0;}
+  .paj-box.ours li::before{content:'✓';color:var(--green);font-weight:900;flex-shrink:0;}
+  .paj-box ul li.no::before{content:'✗';color:#E57373;}
+  .paj-arrow{display:flex;align-items:center;justify-content:center;font-size:32px;color:var(--green);}
+  @media(max-width:700px){.paj-grid{grid-template-columns:1fr;}.paj-arrow{transform:rotate(90deg);}}
 
   /* BENEFITS */
   .bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:56px;}
@@ -119,6 +155,14 @@
   .tlitem:nth-child(2) .tltag{background:#E0F7F5;color:var(--teal);}
   .tlitem:nth-child(3) .tltag{background:#EDE7F6;color:var(--purple);}
 
+  /* SCOPE BOX — new */
+  .scope-box{background:var(--ink);border-radius:20px;padding:44px 48px;margin-top:40px;}
+  .scope-box .sb-label{font-family:'Space Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--teal);font-weight:700;margin-bottom:20px;}
+  .scope-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:8px;}
+  .scope-item{background:rgba(255,255,255,.06);border-radius:12px;padding:20px 22px;}
+  .scope-item .si-num{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--teal);line-height:1;margin-bottom:6px;}
+  .scope-item p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.6;}
+
   /* TECH */
   .tech-wrap{background:#F4F2FF;padding:80px 0;}
   .tech-inner{max-width:1100px;margin:0 auto;padding:0 32px;}
@@ -151,6 +195,8 @@
     .tlrow{grid-template-columns:1fr;}
     .tlitem{border-right:none;border-bottom:2px solid #F0EDE8;}
     .tlitem:last-child{border-bottom:none;}
+    .central-problem{padding:28px 24px;}
+    .scope-box{padding:28px 24px;}
   }
 </style>
 </head>
@@ -180,6 +226,12 @@
       <p class="body-text">UTM's campus spans approximately 1,222 hectares. You can't walk from your college to your faculty. You depend entirely on the bus — but the bus has no idea you're waiting.</p>
     </div>
 
+    <!-- CENTRAL PROBLEM STATEMENT — addresses Issue 2 -->
+    <div class="central-problem reveal">
+      <div class="cp-label">Central Problem</div>
+      <blockquote>UTM's campus shuttle services operate on <em>fixed schedules with no mechanism to detect or respond to real-time passenger demand</em> — leaving students stranded at stops during peak periods with no information on bus location, arrival time, or seat availability.</blockquote>
+    </div>
+
     <div class="problem-cards reveal">
       <div class="pcard c1">
         <span class="ico">⏱️</span>
@@ -200,6 +252,33 @@
         <span class="stat">No real-time fleet dashboard exists</span>
       </div>
     </div>
+
+    <!-- LOCAL EVIDENCE STRIP — addresses Issue 4 -->
+    <div class="evidence-strip reveal">
+      <div class="ev-label">Why We Know This Is Real at UTM</div>
+      <div class="ev-item">
+        <div class="ev-icon">📄</div>
+        <div class="ev-text">
+          <h4>Funded UTM Research Initiative</h4>
+          <p>A RM188,127 UTM-funded research project (2026–2028) formally documents the same problem: overcrowding, unpredictable bus frequency, and students at KDOJ and KDSE specifically burdened by long waits with no notifications.</p>
+        </div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-icon">🗓️</div>
+        <div class="ev-text">
+          <h4>Official UTM Bus Schedule</h4>
+          <p>The published UTM bus schedule confirms all 19 services operate on fixed timetables with no demand-sensing mechanism of any kind — arrival times are explicitly stated as not guaranteed.</p>
+        </div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-icon">🎓</div>
+        <div class="ev-text">
+          <h4>Student Consultation</h4>
+          <p>Preliminary consultation with UTM students who regularly use campus shuttle services confirmed recurring experiences of extended waits during pre-lecture periods and no access to real-time bus information.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -256,6 +335,46 @@
             <span class="lchip">📊 Fleet Metrics</span>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAJ RELATIONSHIP — addresses the complementary framing -->
+<div class="paj-wrap">
+  <div class="paj-inner">
+    <div class="reveal">
+      <div class="section-label">Institutional Context</div>
+      <h2>GPS tracking makes buses <em>visible.</em><br>ORBIT makes them <em>intelligent.</em></h2>
+      <p class="body-text">A funded UTM research initiative is already deploying GPS tracking infrastructure across all campus corridors. ORBIT is the coordination intelligence layer above it — not competing with it, complementing it.</p>
+    </div>
+
+    <div class="paj-grid reveal">
+      <div class="paj-box theirs">
+        <div class="pb-label">UTM IoT-GPS Initiative (Active, 2026–2028)</div>
+        <h3>Bus Visibility</h3>
+        <ul>
+          <li>GPS trackers on every bus</li>
+          <li>Real-time bus location for passengers</li>
+          <li>ML-based ETA prediction</li>
+          <li>Display screens at bus stops</li>
+          <li class="no">No student demand sensing</li>
+          <li class="no">No autonomous dispatch decisions</li>
+          <li class="no">Buses still run fixed schedules</li>
+        </ul>
+      </div>
+      <div class="paj-arrow">＋</div>
+      <div class="paj-box ours">
+        <div class="pb-label">ORBIT — This Project</div>
+        <h3>Bus Intelligence</h3>
+        <ul>
+          <li>Students signal demand at stops</li>
+          <li>Agents detect queue build-up in real time</li>
+          <li>Buses adjust timing autonomously</li>
+          <li>Fleet manager sees every decision and why</li>
+          <li>Designed to consume GPS feed when live</li>
+          <li>No new routes, no new hardware needed</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -360,11 +479,11 @@
   </div>
 </div>
 
-<!-- PLAN -->
+<!-- PLAN — addresses complexity concern -->
 <section class="reveal">
   <div class="section-label">The Plan</div>
   <h2>Design this semester.<br><em>Build it next year.</em></h2>
-  <p class="body-text" style="margin-bottom:0">PSM1 is the full blueprint. PSM2 is the construction — layer by layer, in order of student impact.</p>
+  <p class="body-text" style="margin-bottom:0">PSM1 is the full blueprint. PSM2 is the construction — layer by layer, in order of student impact. The system has standalone value at every stage.</p>
 
   <div class="tlrow">
     <div class="tlitem">
@@ -382,8 +501,31 @@
     <div class="tlitem">
       <div class="tlphase">PSM2 — Phase 2 &amp; 3</div>
       <h3>Agents + Dashboard</h3>
-      <p>Add the smart coordination layer and fleet dashboard. Full three-layer system running live by Week 15, verified against 14 defined test scenarios.</p>
+      <p>Add the smart coordination layer and fleet dashboard. Full three-layer system running live by Week 15, verified against defined test scenarios.</p>
       <span class="tltag">Final Demo — 100%</span>
+    </div>
+  </div>
+
+  <!-- SCOPE BOX — directly addresses complexity concern -->
+  <div class="scope-box reveal">
+    <div class="sb-label">PSM2 Scope — What Keeps This Manageable</div>
+    <div class="scope-grid">
+      <div class="scope-item">
+        <div class="si-num">3</div>
+        <p>Bus corridors modelled in simulation — not all 19. Bus B, E, and F. Representative, not exhaustive.</p>
+      </div>
+      <div class="scope-item">
+        <div class="si-num">0</div>
+        <p>Physical hardware on real buses. The entire PSM2 evaluation runs on software-in-the-loop simulation with a virtual data injector.</p>
+      </div>
+      <div class="scope-item">
+        <div class="si-num">3</div>
+        <p>Layers built in priority order. Even if the dashboard is incomplete, the app and MAS backend constitute a working, demonstrable system.</p>
+      </div>
+      <div class="scope-item">
+        <div class="si-num">1yr</div>
+        <p>Head start. PSM1 approval is now. PSM2 build semester starts next academic year — preparation begins immediately.</p>
+      </div>
     </div>
   </div>
 </section>
